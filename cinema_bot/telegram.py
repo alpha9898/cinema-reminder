@@ -41,7 +41,14 @@ class Telegram:
     def _call(self, method: str, data: dict, files: dict | None = None) -> dict:
         url = API.format(token=self.token, method=method)
         for attempt in range(4):
-            r = self.session.post(url, data=data, files=files, timeout=60)
+            try:
+                r = self.session.post(url, data=data, files=files, timeout=60)
+            except requests.RequestException as e:
+                # رسالة الخطأ الأصلية ممكن يبقى فيها الـ URL بالتوكن، فبنكتب نوع الخطأ بس
+                if attempt < 3:
+                    time.sleep(5 * (attempt + 1))
+                    continue
+                raise RuntimeError(f"Telegram {method}: network error ({type(e).__name__})") from None
             body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
             if r.status_code == 429:
                 time.sleep(body.get("parameters", {}).get("retry_after", 5) + 1)

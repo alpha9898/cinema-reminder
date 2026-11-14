@@ -17,8 +17,16 @@ token = os.environ.get("TELEGRAM_BOT_TOKEN")
 if not token:
     sys.exit("حط TELEGRAM_BOT_TOKEN في ملف .env الأول")
 
-r = requests.get(f"https://api.telegram.org/bot{token}/getUpdates", timeout=30)
-data = r.json()
+data = None
+for attempt in range(3):
+    try:
+        data = requests.get(f"https://api.telegram.org/bot{token}/getUpdates", timeout=30).json()
+        break
+    except requests.RequestException as e:
+        # متطبعش رسالة الخطأ الأصلية: ممكن يبقى فيها الـ URL بالتوكن
+        err = type(e).__name__
+if data is None:
+    sys.exit(f"مقدرتش أوصل لتيليجرام ({err}). جرب تاني كمان شوية.")
 if not data.get("ok"):
     sys.exit(f"تيليجرام رفض: {data.get('description')} (اتأكد من التوكن)")
 
