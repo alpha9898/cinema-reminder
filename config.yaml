@@ -1,0 +1,30 @@
+# إعدادات بوت السينما
+
+# المدن اللي هتظهر مواعيد سينماتها (زي ما elCinema كاتبها)
+cities:
+  - Cairo
+  - Giza
+
+# عدد الأيام اللي تظهر مواعيدها في الرسالة (أول أيام متاحة من النهارده)
+days_to_show: 2
+
+# فروع Scene / Galaxy (كلهم نفس الموقع)
+scene_branches:
+  - https://cfc.scenecinemas.com        # Cairo Festival City
+  - https://district5.scenecinemas.com  # District 5
+  - https://moa.galaxy-cinema.com       # Galaxy Mall of Arabia
+
+# السلاسل اللي ليها قسم لوحدها في الرسالة، بتتعرف من اسم السينما على elCinema
+chains:
+  vox:
+    title: VOX Cinemas
+    match: ["vox"]
+    link: https://egy.voxcinemas.com/movies/whatson
+  premiere:
+    title: Premiere Cinemas
+    match: ["premiere"]
+    link: https://www.premiere-cinemas.com/en/now-showing
+  scene:
+    title: Scene / Galaxy Cinemas
+    match: ["scene", "galaxy"]
+    link: https://scenecinemas.com
