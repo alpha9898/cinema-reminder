@@ -1,294 +1,207 @@
 {
-  "announced": {
-    "best pancakes in the county": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Best Pancakes in the County"
-    },
-    "clayface": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Clayface"
-    },
-    "digger": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Digger"
-    },
-    "ebenezer": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Ebenezer"
-    },
-    "el gawahergy": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "El Gawahergy"
-    },
-    "for life": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "For Life"
-    },
-    "godzilla minus zero": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Godzilla Minus Zero"
-    },
-    "hadoota": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Hadoota"
-    },
-    "heart of the beast": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Heart of the Beast"
-    },
-    "how to rob a bank": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "How to Rob a Bank"
-    },
-    "into the wonderwoods": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Into the Wonderwoods"
-    },
-    "khally balak min nafsak": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Khally Balak Min Nafsak"
-    },
-    "les miserables": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Les Miserables"
-    },
-    "low expectations": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Low Expectations"
-    },
-    "mahmoud el tany": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Mahmoud El Tany"
-    },
-    "matloub aaeleyan": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Matloub Aaeleyan"
-    },
-    "naseeb": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Naseeb"
-    },
-    "other mommy": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Other Mommy"
-    },
-    "red flag": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Red Flag"
-    },
-    "resident evil": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Resident Evil"
-    },
-    "saqr w kanarya": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Saqr w Kanarya"
-    },
-    "sense and sensibility": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Sense and Sensibility"
-    },
-    "short film program 1": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "SHORT FILM PROGRAM 1"
-    },
-    "spider man brand new day": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Spider-Man: Brand New Day"
-    },
-    "the cat in the hat": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "The Cat in the Hat"
-    },
-    "the cycle": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "The Cycle"
-    },
-    "the odyssey": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "The Odyssey"
-    },
-    "uc harfliler muhur": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Üç Harfliler: Mühür"
-    },
-    "verity": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Verity"
-    },
-    "vittorio de sica staging life": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema"
-      ],
-      "title": "Vittorio De Sica: Staging Life"
-    },
-    "wala kan ala el bal": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Wala Kan Ala El-Bal"
-    },
-    "whalefall": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Whalefall"
-    },
-    "wildwood": {
-      "first_seen": "2026-11-15",
-      "last_seen": "2026-11-15",
-      "sources": [
-        "elcinema",
-        "scene"
-      ],
-      "title": "Wildwood"
-    }
-  },
-  "elcinema_theaters": {},
   "failing": {
     "premiere": "2026-11-15T02:58+02:00"
   },
   "initialized": true,
-  "seeded_sources": [
-    "elcinema",
-    "scene"
-  ],
-  "version": 1
+  "known": {
+    "2069657": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "El Gawahergy"
+    },
+    "2088495": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Wildwood"
+    },
+    "2093181": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Saqr w Kanarya"
+    },
+    "2095318": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "The Cat in the Hat"
+    },
+    "2095329": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "The Odyssey"
+    },
+    "2095519": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Other Mommy"
+    },
+    "2095662": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Red Flag"
+    },
+    "2095765": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Spider-Man: Brand New Day"
+    },
+    "2096928": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Naseeb"
+    },
+    "2097950": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Digger"
+    },
+    "2098154": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Whalefall"
+    },
+    "2098155": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Clayface"
+    },
+    "2098161": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Les Miserables"
+    },
+    "2098173": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Resident Evil"
+    },
+    "2098232": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Verity"
+    },
+    "2098323": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Godzilla Minus Zero"
+    },
+    "2098547": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Mahmoud El Tany"
+    },
+    "2098609": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Khally Balak Min Nafsak"
+    },
+    "2099108": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Ebenezer"
+    },
+    "2099119": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Sense and Sensibility"
+    },
+    "2099520": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Matloub Aaeleyan"
+    },
+    "2099773": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Wala Kan Ala El-Bal"
+    },
+    "2099777": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "How to Rob a Bank"
+    },
+    "2100562": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Heart of the Beast"
+    },
+    "2100794": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "The Cycle"
+    },
+    "2100998": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Hadoota"
+    },
+    "2101015": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "notified",
+      "title": "Best Pancakes in the County"
+    },
+    "2102069": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Üç Harfliler: Mühür"
+    },
+    "2102900": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Low Expectations"
+    },
+    "2102903": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Vittorio De Sica: Staging Life"
+    },
+    "2102904": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "For Life"
+    },
+    "2102953": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "SHORT FILM PROGRAM 1"
+    },
+    "2102959": {
+      "first_seen": "2026-11-15",
+      "last_seen": "2026-11-15",
+      "status": "pending",
+      "title": "Into the Wonderwoods"
+    }
+  },
+  "version": 2
 }
