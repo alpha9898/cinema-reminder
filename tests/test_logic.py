@@ -1,80 +1,18 @@
-"""منطق "إيه الجديد" والرسايل، من غير إنترنت."""
+"""منطق "إمتى نبعت" والرسايل، من غير إنترنت."""
 
+import json
 from datetime import date
 
 import pytest
 
 from cinema_bot import main as bot
 from cinema_bot import message
-from cinema_bot.models import Listing, Show
-from cinema_bot.normalize import find_key, normalize, same_film
-
-TODAY = date(2026, 11, 14)
-CFG = {
-    "cities": ["Cairo", "Giza"],
-    "days_to_show": 2,
-    "chains": {
-        "vox": {"title": "VOX Cinemas", "match": ["vox"], "link": "https://egy.voxcinemas.com/movies/whatson"},
-        "premiere": {"title": "Premiere Cinemas", "match": ["premiere"], "link": "https://www.premiere-cinemas.com/en/now-showing"},
-        "scene": {"title": "Scene / Galaxy Cinemas", "match": ["scene", "galaxy"], "link": "https://scenecinemas.com"},
-    },
-}
+from cinema_bot.models import Film
+from tests.test_parsers import CHAINS
 
 
-@pytest.mark.parametrize("a,b", [
-    ("EBENZER", "Ebenezer"),
-    ("Wala Kan Ala El-Bal", "Wala Kan Ala Albal"),
-    ("The Cat in the Hat Ar", "The Cat In The Hat -Arabic DUB"),
-    ("Matloub Aelyan", "Matloub Aaeleyan"),
-    ("Hadoota (Arabic)", "Hadoota"),
-])
-def test_same_film(a, b):
-    assert same_film(normalize(a), normalize(b))
-
-
-@pytest.mark.parametrize("a,b", [
-    ("Verity", "Venom"),
-    ("Wildwood", "Whalefall"),
-    ("The Cycle", "The Odyssey"),
-])
-def test_different_films(a, b):
-    assert not same_film(normalize(a), normalize(b))
-
-
-def test_find_key_reuses_known():
-    assert find_key("EBENZER", ["ebenezer", "verity"]) == "ebenezer"
-    assert find_key("Brand New Film", ["ebenezer"]) == "brand new film"
-
-
-def el(title, wid, shows=()):
-    return Listing("elcinema", wid, title, f"https://elcinema.com/en/work/{wid}/",
-                   poster=f"https://img/{wid}.jpg", shows=list(shows), details_loaded=True)
-
-
-def test_message_sections_split_by_chain():
-    shows = [
-        Show("Vox Mall of Egypt Cinema", TODAY, ["01:30 PM", "12:45 AM"]),
-        Show("Premiere IMAX Cinema", TODAY, ["03:45 PM"]),
-        Show("Cairo Festival Scene Cinema", TODAY, ["07:00 PM"]),
-        Show("City Stars Cinema", TODAY, ["10:00 PM"]),
-    ]
-    own_scene = Listing("scene", "cfc:x", "X", "https://cfc.scenecinemas.com/movie-details/x.html",
-                        shows=[Show("Scene Cinema - Cairo Festival City", TODAY, ["07:00 PM"])], details_loaded=True)
-    poster, caption, body = message.new_film([el("X", "1", shows), own_scene], CFG, TODAY)
-    assert poster == "https://img/1.jpg"
-    assert "<b>X</b>" in caption
-    assert "VOX Cinemas" in body and "1:30م · 12:45ص" in body
-    assert "Premiere IMAX Cinema: 3:45م" in body
-    # فرع Festival City يظهر مرة واحدة بس (من موقع Scene نفسه)
-    assert "Cairo Festival Scene Cinema" not in body
-    assert "Scene Cinema - Cairo Festival City: 7:00م" in body
-    assert "City Stars Cinema" in body
-    assert body.index("VOX") < body.index("Premiere") < body.index("Scene /") < body.index("سينمات تانية")
-
-
-def test_html_is_escaped():
-    _, caption, _ = message.new_film([el("Tom & Jerry <3", "9")], CFG, TODAY)
-    assert "Tom &amp; Jerry &lt;3" in caption
+def film(fid, title=None):
+    return Film(fid, title or f"Film {fid}", f"https://elcinema.com/en/work/{fid}/", f"https://img/{fid}.jpg")
 
 
 class Recorder:
@@ -90,81 +28,105 @@ class Recorder:
 
 
 @pytest.fixture
-def harness(monkeypatch, tmp_path):
+def world(monkeypatch, tmp_path):
+    """عالم وهمي: الأفلام المعروضة، وكل فيلم في أنهي سلاسل."""
     rec = Recorder()
-    found = {"value": {}}
+    w = {"films": [], "branches": {}, "down": False}
+
+    def list_now(http):
+        if w["down"]:
+            raise RuntimeError("HTTPError: 503")
+        return w["films"]
+
     monkeypatch.setattr(bot, "DryRun", lambda: rec)
-    monkeypatch.setattr(bot, "collect", lambda *a, **k: (found["value"], {}))
-    monkeypatch.setattr(bot, "load_details", lambda *a, **k: None)
-    monkeypatch.setattr(bot.time, "sleep", lambda s: None)
+    monkeypatch.setattr(bot, "load_config", lambda: {"chains": CHAINS})
+    monkeypatch.setattr(bot.elcinema, "list_now_showing", list_now)
+    monkeypatch.setattr(bot.elcinema, "chain_branches", lambda fid, http, chains: w["branches"].get(fid, {}))
+    monkeypatch.setattr(bot.elcinema, "release_date", lambda fid, http: date(2026, 11, 18))
     state = tmp_path / "state.json"
 
-    def run(listings, *extra):
-        found["value"] = listings
+    def run(*extra):
         return bot.main(["--dry-run", "--save", "--state", str(state), *extra])
 
-    return rec, run
+    return rec, w, run, state
 
 
-def test_first_run_then_new_film_then_no_repeat(harness):
-    rec, run = harness
-    assert run({"elcinema": [el("Old Film", "1")]}) == 0
-    assert len(rec.texts) == 1 and "البوت شغال" in rec.texts[0] and not rec.photos
+def test_first_run_is_quiet_then_only_new_vox_premiere_films(world):
+    rec, w, run, _ = world
+    w["films"] = [film("1"), film("2")]
+    w["branches"] = {"1": {"vox": ["Mall of Egypt"]}}  # 2 مش في VOX/Premiere
+    assert run() == 0
+    assert not rec.photos and len(rec.texts) == 1
+    assert "البوت شغال" in rec.texts[0] and "1 فيلم معروضين فيهم" in rec.texts[0]
 
     rec.texts.clear()
-    assert run({"elcinema": [el("Old Film", "1"), el("Brand New", "2")]}) == 0
-    assert len(rec.photos) == 1 and "Brand New" in rec.photos[0][1]
+    w["films"].append(film("3", "Brand New"))
+    w["branches"]["3"] = {"premiere": ["IMAX", "Point 90"]}
+    assert run() == 0
+    assert len(rec.photos) == 1
+    url, caption = rec.photos[0]
+    assert url == "https://img/3.jpg"
+    assert "Brand New" in caption and "Premiere</b>: IMAX · Point 90" in caption
+    assert "18 نوفمبر 2026" in caption
 
-    rec.texts.clear(); rec.photos.clear()
-    assert run({"elcinema": [el("Old Film", "1"), el("Brand New", "2")]}) == 0
-    assert rec.texts == [] and rec.photos == []
+    rec.photos.clear()
+    assert run() == 0
+    assert rec.photos == [] and rec.texts == []  # مفيش تكرار
 
 
-def test_new_source_sends_follow_up_once(harness):
-    rec, run = harness
-    other = Listing("premiere", "5", "Other Movie", "https://p/5", details_loaded=True)
-    run({"elcinema": [el("Film", "1"), el("Other Movie", "5")], "premiere": [other]})
+def test_film_not_at_vox_or_premiere_is_sent_when_it_arrives(world):
+    rec, w, run, _ = world
+    w["films"] = [film("1")]
+    run()
     rec.texts.clear()
-    pr = Listing("premiere", "7", "FILM", "https://www.premiere-cinemas.com/en/movie-details/7/1",
-                 available_days=[TODAY], details_loaded=True)
-    run({"elcinema": [el("Film", "1"), el("Other Movie", "5")], "premiere": [other, pr]})
-    assert len(rec.texts) == 1 and "نزل كمان على Premiere Cinemas" in rec.texts[0]
-    rec.texts.clear()
-    run({"elcinema": [el("Film", "1")], "premiere": [pr]})
-    assert rec.texts == []
+    w["films"].append(film("9", "Arabic Film"))
+    run()
+    assert rec.photos == []  # في سينمات تانية بس: مفيش رسالة
+    w["branches"]["9"] = {"vox": ["City Centre Almaza"]}
+    run()
+    assert len(rec.photos) == 1 and "Arabic Film" in rec.photos[0][1]
 
 
-def test_source_first_working_later_is_recorded_quietly(harness):
-    rec, run = harness
-    pr = Listing("premiere", "7", "Film", "https://p/7", details_loaded=True)
-    run({"premiere": [pr]})  # elCinema واقع في أول تشغيل
-    rec.texts.clear()
-    # elCinema اشتغل: أفلامه الموجودة أصلاً متتبعتش كأنها جديدة
-    run({"premiere": [pr], "elcinema": [el("Film", "1"), el("Already Showing", "2")]})
-    assert rec.texts == [] and rec.photos == []
-    # بس الفيلم الجديد فعلاً بعد كده بيتبعت
-    run({"premiere": [pr], "elcinema": [el("Film", "1"), el("Already Showing", "2"), el("Fresh Release", "3")]})
-    assert len(rec.photos) == 1 and "Fresh Release" in rec.photos[0][1]
+def test_pending_film_from_first_run_is_sent_later(world):
+    rec, w, run, _ = world
+    w["films"] = [film("1")]
+    run()  # أول تشغيل: 1 مش في VOX/Premiere لسه
+    w["branches"]["1"] = {"vox": ["Mall of Egypt"]}
+    run()
+    assert len(rec.photos) == 1
 
 
-def test_send_existing_on_first_run(harness):
-    rec, run = harness
-    run({"elcinema": [el("A", "1"), el("Bb film", "2")]}, "--send-existing")
+def test_send_existing(world):
+    rec, w, run, _ = world
+    w["films"] = [film("1"), film("2")]
+    w["branches"] = {"1": {"vox": ["Mall of Egypt"]}, "2": {"premiere": ["IMAX"]}}
+    run("--send-existing")
     assert len(rec.photos) == 2
 
 
-def test_source_down_warns_once_and_recovers(monkeypatch, tmp_path):
-    rec = Recorder()
-    monkeypatch.setattr(bot, "DryRun", lambda: rec)
-    monkeypatch.setattr(bot, "load_details", lambda *a, **k: None)
-    state = str(tmp_path / "s.json")
-    ok = {"elcinema": [el("A", "1")]}
+def test_old_state_file_starts_quietly(world):
+    rec, w, run, state = world
+    state.write_text(json.dumps({"version": 1, "announced": {"x": {}}, "initialized": True}), encoding="utf-8")
+    w["films"] = [film("1")]
+    w["branches"] = {"1": {"vox": ["Mall of Egypt"]}}
+    run()
+    assert not rec.photos and "البوت شغال" in rec.texts[0]
+    assert json.loads(state.read_text(encoding="utf-8"))["version"] == 2
 
-    monkeypatch.setattr(bot, "collect", lambda *a, **k: (ok, {"premiere": "HTTPError: 503"}))
-    bot.main(["--dry-run", "--save", "--state", state])
-    bot.main(["--dry-run", "--save", "--state", state])
+
+def test_elcinema_down_warns_once_and_recovers(world):
+    rec, w, run, _ = world
+    w["films"] = [film("1")]
+    run()
+    w["down"] = True
+    assert run() == 1
+    run()
     assert sum("مش قادر أقرا" in t for t in rec.texts) == 1
-
-    monkeypatch.setattr(bot, "collect", lambda *a, **k: ({**ok, "premiere": []}, {}))
-    bot.main(["--dry-run", "--save", "--state", state])
+    w["down"] = False
+    run()
     assert any("رجع يشتغل" in t for t in rec.texts)
+
+
+def test_html_is_escaped():
+    text = message.new_film(film("1", "Tom & Jerry <3"), None, {"vox": ["Mall of Egypt"]}, CHAINS)
+    assert "Tom &amp; Jerry &lt;3" in text

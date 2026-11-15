@@ -1,4 +1,9 @@
-"""الذاكرة بتاعة البوت: الأفلام اللي اتبعتت، المواقع اللي واقعة، ومدن سينمات elCinema."""
+"""ذاكرة البوت (data/state.json).
+
+known[film_id] = {"title", "status", "first_seen", "last_seen"}
+  status "notified": اتبعت عنه (أو كان معروض في VOX/Premiere قبل ما البوت يبدأ)
+  status "pending":  معروض في مصر بس لسه مش في VOX/Premiere، بنفضل نشيك عليه
+"""
 
 from __future__ import annotations
 
@@ -9,21 +14,25 @@ from pathlib import Path
 from .config import ROOT
 
 DEFAULT_PATH = ROOT / "data" / "state.json"
+VERSION = 2
 FORGET_AFTER_DAYS = 180
 
 
 def empty_state() -> dict:
-    return {"version": 1, "initialized": False, "announced": {}, "failing": {}, "seeded_sources": [],
-            "elcinema_theaters": {}}
+    return {"version": VERSION, "initialized": False, "known": {}, "failing": {}}
 
 
 def load(path: Path = DEFAULT_PATH) -> dict:
     if not path.exists():
         return empty_state()
     data = json.loads(path.read_text(encoding="utf-8"))
-    base = empty_state()
-    base.update(data)
-    return base
+    st = empty_state()
+    if data.get("version") == VERSION:
+        st.update(data)
+    else:
+        # نسخة قديمة من البوت: نبدأ من جديد (من غير ما نبعت الأفلام الموجودة)
+        st["failing"] = data.get("failing", {})
+    return st
 
 
 def save(state: dict, path: Path = DEFAULT_PATH) -> None:
@@ -35,6 +44,5 @@ def save(state: dict, path: Path = DEFAULT_PATH) -> None:
 
 
 def forget_old(state: dict, today: date) -> None:
-    """ينسى الأفلام اللي بقالها 6 شهور مش معروضة، عشان الملف ميكبرش على الفاضي."""
     cutoff = (today - timedelta(days=FORGET_AFTER_DAYS)).isoformat()
-    state["announced"] = {k: v for k, v in state["announced"].items() if v.get("last_seen", "") >= cutoff}
+    state["known"] = {k: v for k, v in state["known"].items() if v.get("last_seen", "") >= cutoff}
