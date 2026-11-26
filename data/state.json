@@ -46,11 +46,23 @@
       "status": "pending",
       "title": "Spider-Man: Brand New Day"
     },
+    "2096575": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "notified",
+      "title": "Paper Tiger"
+    },
     "2096928": {
       "first_seen": "2026-11-15",
       "last_seen": "2026-11-26",
       "status": "notified",
       "title": "Naseeb"
+    },
+    "2097394": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "notified",
+      "title": "Focker In-Law"
     },
     "2097637": {
       "first_seen": "2026-11-25",
@@ -118,6 +130,12 @@
       "status": "notified",
       "title": "I Play Rocky"
     },
+    "2099110": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "notified",
+      "title": "Hexed"
+    },
     "2099119": {
       "first_seen": "2026-11-15",
       "last_seen": "2026-11-24",
@@ -148,9 +166,15 @@
       "status": "notified",
       "title": "How to Rob a Bank"
     },
+    "2100295": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "notified",
+      "title": "Fatherland"
+    },
     "2100562": {
       "first_seen": "2026-11-15",
-      "last_seen": "2026-11-24",
+      "last_seen": "2026-11-26",
       "status": "notified",
       "title": "Heart of the Beast"
     },
@@ -172,6 +196,12 @@
       "status": "notified",
       "title": "Best Pancakes in the County"
     },
+    "2101718": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "notified",
+      "title": "You Can See Everything"
+    },
     "2101989": {
       "first_seen": "2026-11-19",
       "last_seen": "2026-11-26",
@@ -189,6 +219,30 @@
       "last_seen": "2026-11-26",
       "status": "notified",
       "title": "Belkis"
+    },
+    "2102839": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "pending",
+      "title": "A Messy Tribute to Motherly Love"
+    },
+    "2102874": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "notified",
+      "title": "Heysel 85"
+    },
+    "2102878": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "pending",
+      "title": "Supporting Role"
+    },
+    "2102925": {
+      "first_seen": "2026-11-26",
+      "last_seen": "2026-11-26",
+      "status": "pending",
+      "title": "Paris Paris"
     }
   },
   "version": 2
